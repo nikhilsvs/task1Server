@@ -8,13 +8,14 @@ var config = require('./config');
 var cors = require('cors');
 var passport = require('passport');
 var User = require('./models/users');
+var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect(process.env.MONGODB_URI || config.baseUrl)
+mongoose.connect(config.MONGO_URI || config.baseUrl)
 .then((db)=>{
   console.log(`Connected to DB : ${db}`);
 });
