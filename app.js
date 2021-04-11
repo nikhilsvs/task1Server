@@ -15,10 +15,7 @@ var userRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect(config.MONGO_URI || config.baseUrl)
-.then((db)=>{
-  console.log(`Connected to DB : ${db}`);
-});
+mongoose.connect('mongodb+srv://Nikhilsvs:Nikhil@98@authapp.k493a.mongodb.net/authapp?retryWrites=true&w=majority');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
