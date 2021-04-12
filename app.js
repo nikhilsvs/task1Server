@@ -9,13 +9,17 @@ var cors = require('cors');
 var passport = require('passport');
 var User = require('./models/users');
 var config = require('./config');
+var authenticate = require('./authenticate');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb+srv://Nikhilsvs:Nikhil@98@authapp.k493a.mongodb.net/authapp?retryWrites=true&w=majority');
+mongoose.connect(config.baseUrl)
+.then((db)=>{
+  console.log("Connected to db");
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
+app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

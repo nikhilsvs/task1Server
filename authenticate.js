@@ -6,14 +6,16 @@ var jwt = require('jsonwebtoken');
 var config = require('./config');
 var LocalStrategy = require('passport-local').Strategy;
 
-exports.local = passport.use({ usernameField: 'email' },new LocalStrategy(User.authenticate()));
+exports.local = passport.use(new LocalStrategy({usernameField: 'email'},User.authenticate()));
+
+
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 exports.getToken = function(user){
     return jwt.sign(user,config.secret,{expiresIn:300}); //Expires in 5 minutes
 }
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken;
