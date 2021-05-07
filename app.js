@@ -13,7 +13,7 @@ var authenticate = require('./authenticate');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
-
+var imageRouter = require('./routes/images');
 var app = express();
 
 mongoose.connect(config.baseUrl)
@@ -39,6 +39,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/images',imageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
